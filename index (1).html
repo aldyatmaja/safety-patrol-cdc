@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Checksheet Safety Patrol</title>
+<style>
+:root{--bg:#e9ecef;--paper:#fff;--text:#111;--line:#222;--head:#d9d9d9;--hi:#ff4b1f;--md:#ffff1a;--lo:#1aa7ec;--tick:#0a7d33;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14181d;--paper:#1d232b;--text:#eef1f4;--line:#8a96a3;--head:#313a45;--tick:#5be08d}}
+:root[data-theme="dark"]{--bg:#14181d;--paper:#1d232b;--text:#eef1f4;--line:#8a96a3;--head:#313a45;--tick:#5be08d}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Calibri,Arial,system-ui,sans-serif;font-size:14px}
+.page{max-width:1040px;margin:0 auto;padding:14px}
+.sheet{background:var(--paper);padding:16px;overflow-x:auto}
+.inner{min-width:860px}
+.top{display:flex;align-items:center;gap:16px}
+.brand{font-weight:700;font-style:italic;color:#c8102e;font-size:1.3rem;white-space:nowrap}
+.brand small{font-weight:400;color:var(--text);font-style:italic}
+h1{flex:1;text-align:center;margin:0;font-size:2rem;letter-spacing:.2px}
+.info{margin:6px 0 4px;display:grid;grid-template-columns:90px 10px 1fr;max-width:420px;row-gap:1px}
+.info input{font:inherit;color:inherit;background:transparent;border:0;border-bottom:1px dotted var(--line);outline:0;width:100%}
+table{border-collapse:collapse;width:100%}
+th,td{border:1px solid var(--line);padding:0;text-align:center}
+th{background:var(--head);font-size:.8rem;padding:4px 3px}
+td{height:60px;font-size:.85rem}
+td.t{text-align:left;padding:4px 6px;vertical-align:top}
+td[contenteditable]:focus{outline:2px solid #4c8dff;outline-offset:-2px}
+td.k{cursor:pointer;width:24px;min-width:24px;user-select:none}
+td.k.on::after{content:"✓";color:var(--tick);font-weight:700;font-size:1.1rem}
+td.kk{width:58px}
+.bot{display:flex;gap:16px;margin-top:10px;flex-wrap:wrap;align-items:flex-start}
+.bot>div{font-size:.78rem}
+.ft{flex:1 1 230px}
+.sig{margin-top:24px}
+.sig span{display:inline-block;width:110px;border-bottom:1px solid var(--text);margin-right:8px}
+.leg{border:1px solid var(--line);border-collapse:collapse}
+.leg td{height:auto;text-align:left;padding:2px 8px;border:0;font-size:.76rem}
+.leg th{background:var(--head);text-align:left;padding:2px 8px;border:1px solid var(--line)}
+.rr td{border:1px solid var(--line);height:auto;font-size:.72rem;text-align:left;padding:3px 5px}
+.rr td.r{font-weight:700;text-align:center;color:#111;width:70px}
+.zona{border:1px solid var(--line);margin-top:12px;font-size:.78rem;max-width:380px}
+.zona p{margin:0;padding:3px 8px;border-bottom:1px solid var(--line)}
+.zona p:last-child{border:0}
+.tools{display:flex;gap:8px;margin-bottom:10px}
+.tools button{font:inherit;padding:6px 14px;border:1px solid var(--line);background:var(--paper);color:var(--text);border-radius:6px;cursor:pointer}
+@media print{body{background:#fff}.tools{display:none}.page{padding:0}.sheet{padding:0}}
+td.p{padding:4px;vertical-align:top;width:125px}
+.ph img{width:100%;max-height:90px;object-fit:cover;border-radius:3px;cursor:zoom-in;display:block;margin-bottom:3px}
+.ph .err{font-size:.7rem;color:#c0392b;margin-bottom:3px}
+td.p input.code{width:100%;font:inherit;font-weight:700;text-align:center;color:inherit;background:transparent;border:0;border-bottom:1px dotted var(--line);outline:0}
+.pb{display:flex;gap:4px;justify-content:center;margin-top:3px}
+.pb button{font-size:.75rem;padding:2px 7px;border:1px solid var(--line);background:var(--paper);color:var(--text);border-radius:4px;cursor:pointer}
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:9;cursor:zoom-out}
+#lb img{max-width:94%;max-height:92%}
+@media print{.pb{display:none}}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="tools"><button onclick="window.print()">Cetak / Simpan PDF</button><button onclick="addRow()">+ Tambah baris</button><span id="src" style="align-self:center;font-size:.8rem;opacity:.75"></span></div>
+<div class="sheet"><div class="inner">
+<div class="top"><div class="brand"><img src="https://lh3.googleusercontent.com/d/1mJkiTMn4jocwFRmjuBXZd5XslKQpyOV0" alt="ASTRA Otoparts" style="height:48px;display:block" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span style="display:none">ASTRA <small>Otoparts</small></span></div><h1>CHECKSHEET SAFETY PATROL</h1></div>
+<div class="info">
+<span>TANGGAL</span><span>:</span><input>
+<span>MEMBER</span><span>:</span><input>
+<span>ZONA</span><span>:</span><input>
+</div>
+<table>
+<thead>
+<tr><th rowspan="2" style="width:34px">NO</th><th rowspan="2" style="width:80px">AREA</th><th rowspan="2">TEMUAN</th><th rowspan="2" style="width:125px">KODE FOTO*</th>
+<th colspan="3">KATEGORI</th><th colspan="7">STOP 6</th><th colspan="3">RISK RANK</th><th rowspan="2" style="width:150px">SARAN TINDAKAN PERBAIKAN</th></tr>
+<tr><th>RINGKAS</th><th>RAPI</th><th>RESIK</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>O</th><th style="background:var(--hi)">A</th><th style="background:var(--md);color:#111">B</th><th style="background:var(--lo)">C</th></tr>
+</thead>
+<tbody id="tb"></tbody>
+</table>
+<div class="bot">
+<div class="ft"><div>*) Kode foto : Nama Zona-Nomor temuan, misal : A1 (Zona A &amp; Temuan nomor 1)</div>
+<p>Bekasi, <span style="display:inline-block;width:150px;border-bottom:1px dotted var(--text)"></span></p>
+<div class="sig"><span></span><span></span><br>Tim Patrol &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tim Patrol</div></div>
+<table class="leg" style="width:auto"><tr><th colspan="2">KATEGORI STOP 6</th></tr>
+<tr><td>A</td><td>: APPARATUS (Terjepit mesin)</td></tr>
+<tr><td>B</td><td>: BIG HEAVY (Kejatuhan benda berat)</td></tr>
+<tr><td>C</td><td>: CAR (Tertabrak kendaraan)</td></tr>
+<tr><td>D</td><td>: DROP (Terjatuh dari ketinggian)</td></tr>
+<tr><td>E</td><td>: ELECTRICAL (Tersengat listrik atau akibat listrik)</td></tr>
+<tr><td>F</td><td>: FIRE (Terkena panas atau kebakaran)</td></tr>
+<tr><td>O</td><td>: OTHERS (Potensi bahaya diluar kategori diatas)</td></tr></table>
+<div><b>RISK RANK</b>
+<table class="rr" style="width:auto"><tr><td class="r" style="background:var(--hi)">RANK A</td><td>- Kematian<br>- Kehilangan anggota tubuh<br>- Kehilangan fungsi tubuh</td></tr>
+<tr><td class="r" style="background:var(--md)">RANK B</td><td>- Cidera<br>- Produksi terhenti<br>- Kehilangan hari kerja</td></tr>
+<tr><td class="r" style="background:var(--lo)">RANK C</td><td>- Cidera ringan<br>- Produksi tidak terhenti<br>- Tidak ada kehilangan hari kerja</td></tr></table></div>
+</div>
+<div class="zona">
+<p><b>Zona A</b> : Warehouse, Charging P.Mover &amp; Charging Forklift</p>
+<p><b>Zona B</b> : Local Process Lt.1, Shipping/Loading Dock, R.Admin Fakturis, TPS Domestik, Tangki Solar &amp; R.Koperasi</p>
+<p><b>Zona C</b> : R.Trafo &amp; Panel, R.Pompa, TPS LB3, R.Claim, R.Maintenance, R.Klinik &amp; Posko Security</p>
+<p><b>Zona D</b> : R.Office Lt.2 &amp; Local Process Lt.2</p>
+</div>
+</div></div>
+</div>
+<div id="lb"><img alt=""></div>
+<script>
+var tb=document.getElementById("tb"),n=0;
+function addRow(){
+n++;var tr=document.createElement("tr");
+var h='<td>'+n+'</td><td contenteditable></td><td class="t" contenteditable></td><td class="p"><div class="ph"></div><input class="code" placeholder="mis. A1"><div class="pb"><button data-a="up" title="Unggah foto">📷 Foto</button><button data-a="url" title="Link foto">🔗</button></div><input type="file" accept="image/*" hidden></td>';
+h+='<td class="k kk" data-g="c"></td><td class="k kk" data-g="c"></td><td class="k kk" data-g="c"></td>';
+for(var i=0;i<7;i++)h+='<td class="k" data-g="s"></td>';
+for(var j=0;j<3;j++)h+='<td class="k" data-g="r"></td>';
+h+='<td class="t" contenteditable></td>';
+tr.innerHTML=h;tb.appendChild(tr);
+}
+var SID="10yxuxmay6aQ8Gx01videkRj0roRK6iNHfPtZgRtUvfg";
+var SNAP=[{tgl:"10/1/2026",tim:"PIC",area:"LP bawah",temuan:"Test",foto:"https://drive.google.com/open?id=1Lk6Tmc7YOaL5B_Qd7hHG8gEkxZTIa2yB",kat:"Ringkas, Rapi",stop:"E (electrical - tersengat listrik)",risk:"C (Risiko Cidera ringan / Produksi tidak terhenti)",saran:"Dipulangkan"}];
+function csv(t){var r=[],row=[],c="",q=false;
+for(var i=0;i<t.length;i++){var ch=t[i];
+if(q){if(ch=='"'){if(t[i+1]=='"'){c+='"';i++}else q=false}else c+=ch}
+else if(ch=='"')q=true;else if(ch==","){row.push(c);c=""}
+else if(ch=="\n"){row.push(c);r.push(row);row=[];c=""}else if(ch!="\r")c+=ch}
+if(c||row.length){row.push(c);r.push(row)}return r}
+function fromCsv(t){var r=csv(t),h=r[0].map(function(x){return x.trim()});
+function ix(n){return h.indexOf(n)}
+return r.slice(1).map(function(x){return{tgl:x[ix("Tanggal Pemantauan")]||"",tim:x[ix("Tim")]||"",area:x[ix("Area")]||"",temuan:x[ix("Deskripsi temuan")]||"",foto:x[ix("Foto Temuan")]||"",kat:x[ix("Kategori")]||"",stop:x[ix("Stop 6")]||"",risk:x[ix("Risk Rank")]||"",saran:x[ix("Saran tindakan perbaikan")]||""}}).filter(function(d){return d.area||d.temuan})}
+function load(D){
+tb.innerHTML="";n=0;
+D.forEach(function(d,i){
+addRow();var tr=tb.lastChild,c=tr.children;
+c[1].textContent=d.area;c[2].textContent=d.temuan;c[17].textContent=d.saran;
+c[3].querySelector(".code").value=String(i+1);
+var k=d.kat.toLowerCase();["ringkas","rapi","resik"].forEach(function(w,j){if(k.indexOf(w)>-1)c[4+j].classList.add("on")});
+var si="ABCDEFO".indexOf((d.stop.trim()[0]||"").toUpperCase());if(si>-1)c[7+si].classList.add("on");
+var ri="ABC".indexOf((d.risk.trim()[0]||"").toUpperCase());if(ri>-1)c[14+ri].classList.add("on");
+var m=d.foto.match(/[?&]id=([\w-]+)/)||d.foto.match(/\/d\/([\w-]+)/);
+if(m)setPhoto(c[3],"https://lh3.googleusercontent.com/d/"+m[1],d.foto);
+});
+while(n<9)addRow();
+var inp=document.querySelectorAll(".info input");
+if(D.length){inp[0].value=D[D.length-1].tgl;inp[1].value=Array.from(new Set(D.map(function(d){return d.tim}))).join(", ")}
+}
+var src=document.getElementById("src");
+load(SNAP);src.textContent="Data: contoh dari Google Sheets";
+try{
+fetch("https://docs.google.com/spreadsheets/d/"+SID+"/gviz/tq?tqx=out:csv&sheet="+encodeURIComponent("Form Responses 1"))
+.then(function(r){if(!r.ok)throw 0;return r.text()})
+.then(function(t){var D=fromCsv(t);if(D.length){load(D);src.textContent="Data: live dari Google Sheets"}})
+.catch(function(){});
+}catch(e){}
+tb.addEventListener("click",function(e){
+var c=e.target.closest("td.k");if(!c)return;
+var on=c.classList.contains("on");
+if(c.dataset.g!=="c"){c.parentNode.querySelectorAll('td.k[data-g="'+c.dataset.g+'"]').forEach(function(x){x.classList.remove("on")});}
+c.classList.toggle("on",!on);
+});
+
+function setPhoto(td,src,link){
+var ph=td.querySelector(".ph");ph.innerHTML="";
+var im=new Image();im.src=src;
+im.onerror=function(){ph.innerHTML=link?'<a href="'+link+'" target="_blank" rel="noopener" style="font-size:.75rem;color:inherit">Buka foto ↗</a>':'<div class="err">Foto tidak dapat dimuat</div>'};
+ph.appendChild(im);
+}
+function driveUrl(u){
+var m=u.match(/\/d\/([\w-]+)/)||u.match(/[?&]id=([\w-]+)/);
+return m?"https://lh3.googleusercontent.com/d/"+m[1]:u;
+}
+tb.addEventListener("click",function(e){
+var b=e.target.closest(".pb button"),td=e.target.closest("td.p");
+if(b&&td){
+if(b.dataset.a==="up")td.querySelector("input[type=file]").click();
+else{var u=prompt("Tempel link foto (link Google Drive juga bisa):");if(u&&u.trim())setPhoto(td,driveUrl(u.trim()));}
+return;
+}
+if(e.target.tagName==="IMG"&&td){var lb=document.getElementById("lb");lb.querySelector("img").src=e.target.src;lb.style.display="flex";}
+});
+tb.addEventListener("change",function(e){
+var f=e.target;if(f.type!=="file"||!f.files[0])return;
+var td=f.closest("td.p"),r=new FileReader();
+r.onload=function(){
+var im=new Image();
+im.onload=function(){
+var k=Math.min(1,800/Math.max(im.width,im.height)),c=document.createElement("canvas");
+c.width=im.width*k;c.height=im.height*k;c.getContext("2d").drawImage(im,0,0,c.width,c.height);
+setPhoto(td,c.toDataURL("image/jpeg",.75));
+};
+im.src=r.result;
+};
+r.readAsDataURL(f.files[0]);
+f.value="";
+});
+document.getElementById("lb").addEventListener("click",function(){this.style.display="none"});
+</script>
+</body>
+</html>
